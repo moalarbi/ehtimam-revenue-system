@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>EHTIMAM — نظام تسجيل الإيرادات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ LOGIN ═══════════════════════════════════ -->
+  <div id="screen-login" class="screen active">
+    <div class="login-bg"></div>
+    <div class="login-card">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <h1 class="brand-name">EHTIMAM</h1>
+        <p class="brand-sub" data-i18n="login.subtitle">نظام تسجيل الإيرادات اليومية</p>
+      </div>
+      <div class="form-group">
+        <label data-i18n="login.password">كلمة المرور</label>
+        <input type="password" id="input-password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn btn-primary btn-full" id="btn-login">
+        <span data-i18n="login.btn">دخول</span>
+        <span class="btn-arrow">←</span>
+      </button>
+      <p class="login-error hidden" id="login-error" data-i18n="login.error">كلمة المرور غير صحيحة</p>
+    </div>
+    <div class="lang-toggle-wrap">
+      <button class="lang-toggle" id="lang-toggle">EN</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ DRIVER DASHBOARD ═══════════════════════ -->
+  <div id="screen-driver" class="screen hidden">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="btn-logout-driver" title="logout">⏻</button>
+      </div>
+      <div class="topbar-center">
+        <span class="topbar-title">EHTIMAM</span>
+      </div>
+      <div class="topbar-right">
+        <button class="lang-toggle sm" id="lang-toggle-driver">EN</button>
+      </div>
+    </header>
+
+    <div class="driver-greeting">
+      <p data-i18n="driver.hello">مرحباً،</p>
+      <h2 id="driver-name-display">—</h2>
+    </div>
+
+    <!-- Entry Form -->
+    <div class="card form-card">
+      <h3 class="card-title" data-i18n="driver.newSession">جلسة جديدة</h3>
+
+      <div class="form-group">
+        <label data-i18n="driver.employee">الموظفة</label>
+        <select id="select-employee">
+          <option value="" data-i18n="driver.selectEmployee">اختر موظفة...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="driver.payment">طريقة الدفع</label>
+        <div class="payment-btns">
+          <button class="pay-btn cash" data-method="cash" data-i18n="driver.cash">كاش</button>
+          <button class="pay-btn card" data-method="card" data-i18n="driver.card">بطاقة</button>
+          <button class="pay-btn app" data-method="app" data-i18n="driver.app">تطبيق</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="driver.amount">المبلغ (ر.س)</label>
+        <input type="number" id="input-amount" placeholder="0" min="0" inputmode="numeric" />
+        <div class="quick-amounts">
+          <button class="quick-btn" data-amount="100">+١٠٠</button>
+          <button class="quick-btn" data-amount="150">+١٥٠</button>
+          <button class="quick-btn" data-amount="200">+٢٠٠</button>
+          <button class="quick-btn" data-amount="300">+٣٠٠</button>
+        </div>
+      </div>
+
+      <button class="btn btn-accent btn-full" id="btn-add-session">
+        <span>＋</span> <span data-i18n="driver.addSession">إضافة جلسة</span>
+      </button>
+    </div>
+
+    <!-- Session List -->
+    <div class="card sessions-card" id="sessions-card">
+      <div class="sessions-header">
+        <h3 class="card-title" data-i18n="driver.sessions">الجلسات</h3>
+        <div class="total-badge">
+          <span data-i18n="driver.total">الإجمالي:</span>
+          <strong id="live-total">٠ ر.س</strong>
+        </div>
+      </div>
+      <div id="sessions-list" class="sessions-list">
+        <p class="empty-msg" data-i18n="driver.noSessions">لا توجد جلسات بعد</p>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-zone" id="submit-zone">
+      <button class="btn btn-submit btn-full" id="btn-submit-all">
+        <span data-i18n="driver.submit">إرسال جميع الجلسات</span>
+        <span id="submit-count" class="submit-count">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ ADMIN DASHBOARD ════════════════════════ -->
+  <div id="screen-admin" class="screen hidden">
+    <header class="topbar admin-bar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="btn-logout-admin" title="logout">⏻</button>
+      </div>
+      <div class="topbar-center">
+        <span class="topbar-title">EHTIMAM <span class="admin-badge" data-i18n="admin.badge">أدمن</span></span>
+      </div>
+      <div class="topbar-right">
+        <button class="lang-toggle sm" id="lang-toggle-admin">EN</button>
+      </div>
+    </header>
+
+    <!-- Stats Row -->
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card" id="stat-revenue">
+        <span class="stat-label" data-i18n="admin.totalRevenue">إجمالي اليوم</span>
+        <span class="stat-value" id="stat-val-revenue">—</span>
+      </div>
+      <div class="stat-card" id="stat-sessions">
+        <span class="stat-label" data-i18n="admin.totalSessions">عدد الجلسات</span>
+        <span class="stat-value" id="stat-val-sessions">—</span>
+      </div>
+    </div>
+
+    <!-- Payment Breakdown -->
+    <div class="card">
+      <h3 class="card-title" data-i18n="admin.byPayment">توزيع طريقة الدفع</h3>
+      <div class="payment-stats" id="payment-stats">
+        <div class="pay-stat cash"><span data-i18n="driver.cash">كاش</span><strong id="ps-cash">—</strong></div>
+        <div class="pay-stat card"><span data-i18n="driver.card">بطاقة</span><strong id="ps-card">—</strong></div>
+        <div class="pay-stat app"><span data-i18n="driver.app">تطبيق</span><strong id="ps-app">—</strong></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card filters-card">
+      <h3 class="card-title" data-i18n="admin.filters">تصفية البيانات</h3>
+      <div class="filters-grid">
+        <div class="form-group">
+          <label data-i18n="admin.filterDate">التاريخ</label>
+          <input type="date" id="filter-date" />
+        </div>
+        <div class="form-group">
+          <label data-i18n="admin.filterDriver">السائق</label>
+          <select id="filter-driver">
+            <option value="" data-i18n="admin.all">الكل</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="admin.filterEmployee">الموظفة</label>
+          <select id="filter-employee-admin">
+            <option value="" data-i18n="admin.all">الكل</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="btn-apply-filter" data-i18n="admin.apply">تطبيق الفلتر</button>
+      <button class="btn btn-ghost" id="btn-clear-filter" data-i18n="admin.clear">مسح</button>
+    </div>
+
+    <!-- Revenue by Driver -->
+    <div class="card">
+      <h3 class="card-title" data-i18n="admin.byDriver">إيرادات السائقين</h3>
+      <div id="driver-stats" class="bar-list"></div>
+    </div>
+
+    <!-- Revenue by Employee -->
+    <div class="card">
+      <h3 class="card-title" data-i18n="admin.byEmployee">إيرادات الموظفات</h3>
+      <div id="employee-stats" class="bar-list"></div>
+    </div>
+
+    <!-- Entries Table -->
+    <div class="card table-card">
+      <h3 class="card-title" data-i18n="admin.entries">سجل الإدخالات</h3>
+      <div class="table-wrap">
+        <table id="entries-table">
+          <thead>
+            <tr>
+              <th data-i18n="table.date">التاريخ</th>
+              <th data-i18n="table.driver">السائق</th>
+              <th data-i18n="table.employee">الموظفة</th>
+              <th data-i18n="table.payment">الدفع</th>
+              <th data-i18n="table.amount">المبلغ</th>
+            </tr>
+          </thead>
+          <tbody id="entries-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="height: 2rem;"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ TOAST ══════════════════════════════════ -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ═══════════════════════════════════ LOADER ═════════════════════════════════ -->
+  <div id="global-loader" class="global-loader hidden">
+    <div class="loader-ring"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
