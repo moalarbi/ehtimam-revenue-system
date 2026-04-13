@@ -15,7 +15,7 @@
    CONFIG — Replace APPS_SCRIPT_URL with your deployed web app URL
 ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyZOueAmwDuo1aa-LLVM8a69pUMI51R8mE-RwWHM00zXNA1VPKg1_CTnpYjV6SfPnujWQ/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbz0S8eXsn60RujnVL6Cdy9_1ocGoFmSPpyxKjnRdCEmTcccc6lTYZFnRTIIM3w22PUUdw/exec',
 };
 
 /* ═══════════════════════════════════════════════════════════════
