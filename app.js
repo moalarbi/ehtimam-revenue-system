@@ -15,7 +15,7 @@
    CONFIG — Replace APPS_SCRIPT_URL with your deployed web app URL
 ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
-  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec',
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyZOueAmwDuo1aa-LLVM8a69pUMI51R8mE-RwWHM00zXNA1VPKg1_CTnpYjV6SfPnujWQ/exec',
 };
 
 /* ═══════════════════════════════════════════════════════════════
